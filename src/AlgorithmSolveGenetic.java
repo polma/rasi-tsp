@@ -37,23 +37,26 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
         for (int i = 0; i < iterationsCount; ++i) {
             //pick 50% of population and combine pairs
             ArrayList<Integer> parentIndexes = new ArrayList<Integer>();
+            boolean [] chosenParents = new boolean[populationSize];
 
             while (parentIndexes.size() < halfPopulation) {
                 int random = rnd.nextInt(populationSize);
-                if (!parentIndexes.contains(random))
+                if (!chosenParents[random]){
+                    chosenParents[random] = true;
                     parentIndexes.add(random);
+                }
             }
-            ArrayList<Integer> alreadySelected = new ArrayList<Integer>();
+            boolean [] alreadySelected = new boolean[populationSize];
             for (int j = 0; j < halfPopulation; j += 2) {
                 int getIndex = rnd.nextInt(halfPopulation);
-                while (alreadySelected.contains(getIndex))
+                while (alreadySelected[getIndex])
                     getIndex = rnd.nextInt(halfPopulation);
-                alreadySelected.add(getIndex);
+                alreadySelected[getIndex] = true;
                 int index1 = parentIndexes.get(getIndex);
-                while (alreadySelected.contains(getIndex))
+                while (alreadySelected[getIndex])
                     getIndex = rnd.nextInt(halfPopulation);
                 int index2 = parentIndexes.get(getIndex);
-                alreadySelected.add(getIndex);
+                alreadySelected[getIndex] = true;
 
                 int[][] offspring = crossoverOperators.ox(population[index1], population[index2]);
                 population[index1] = offspring[1];
@@ -64,7 +67,7 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
             int quarterPopulation = halfPopulation / 2;
             for (int j = 0; j < quarterPopulation; ++j) {
                 int tourIndex = rnd.nextInt();
-                while (parentIndexes.contains(tourIndex))
+                while (chosenParents[tourIndex])
                     tourIndex = rnd.nextInt(populationSize);
                 for (int k = 0; k < 10; ++k) {
                     //pick two pairs of adjacent cities
