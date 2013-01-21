@@ -27,6 +27,12 @@ public class CrossoverOperators {
     }
 
     public int[][] ox(int[] perm1, int[] perm2) {
+        if(perm1.length == 1){
+            int [][] result = new int[2][];
+            result[0] = perm2;
+            result[1] = perm1;
+            return result;
+        }
         int[][] result = new int[2][perm1.length];
 
         int[] crossoverPoints = selectCrossoverPoints(perm1.length);
@@ -42,7 +48,6 @@ public class CrossoverOperators {
             if (!in(perm1, i, crossoverPoints[0], crossoverPoints[1] + 1))
                 elements2.add(i);
         }
-
 
         for (int i = 0; i < crossoverPoints[0]; ++i) {
             result[0][i] = elements2.get(i);
@@ -63,8 +68,8 @@ public class CrossoverOperators {
         return result;
     }
     public static void main(String[] args) {
-        int [] perm1 = {1,2,3,6,4,5};
-        int [] perm2 = {2,6,5,3,1,4};
+        int [] perm1 = {7,8,3,6,4,5};
+        int [] perm2 = {8,6,5,3,7,4};
 
         CrossoverOperators cops = new CrossoverOperators();
 
