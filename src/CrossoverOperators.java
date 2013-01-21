@@ -1,12 +1,19 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class CrossoverOperators {
 
     private Random rnd;
+    public static final int OX = 0;
+    public static final int CX = 1;
+    private int currentOperator;
 
-    public CrossoverOperators() {
+
+    public CrossoverOperators(int operatorId) {
         rnd = new Random();
+        currentOperator = operatorId;
     }
 
     private boolean in(int[] t, int e, int left, int right) {
@@ -26,9 +33,9 @@ public class CrossoverOperators {
         return result;
     }
 
-    public int[][] ox(int[] perm1, int[] perm2) {
-        if(perm1.length == 1){
-            int [][] result = new int[2][];
+    private int[][] ox(int[] perm1, int[] perm2) {
+        if (perm1.length == 1) {
+            int[][] result = new int[2][];
             result[0] = perm2;
             result[1] = perm1;
             return result;
@@ -67,20 +74,96 @@ public class CrossoverOperators {
 
         return result;
     }
+
+    private int[][] cx(int[] perm1, int[] perm2) {
+        if (perm1.length == 1) {
+            int[][] result = new int[2][];
+            result[0] = perm2;
+            result[1] = perm1;
+            return result;
+        }
+
+        final int length = perm1.length;
+        boolean[] visited = new boolean[length];
+        int visitedCount = 0;
+        int idx = 0;
+        int cycleCount = 1;
+        int[][] result = new int[2][];
+
+        result[0] = Arrays.copyOf(perm2, length);
+        result[1] = Arrays.copyOf(perm1, length);
+
+        List<Integer> currCycle = new ArrayList<Integer>();
+
+        while (visitedCount < length) {
+            currCycle.add(idx);
+            ++visitedCount;
+            visited[idx] = true;
+            int corresponding = perm2[idx];
+
+            idx = findIndex(perm1, corresponding);
+
+            while (idx != currCycle.get(0)) {
+                currCycle.add(idx);
+                ++visitedCount;
+                visited[idx] = true;
+                corresponding = perm2[idx];
+                idx = findIndex(perm1, corresponding);
+            }
+
+            if (cycleCount++ % 2 != 0) {
+                for (int i : currCycle) {
+                    int temp = result[0][i];
+                    result[0][i] = result[1][i];
+                    result[1][i] = temp;
+                }
+            }
+
+            idx = (currCycle.get(0) + 1) % length;
+            while (visited[idx] && visitedCount < length) {
+                ++idx;
+                idx = idx >= length ? 0 : idx;
+            }
+
+            currCycle.clear();
+        }
+
+        return result;
+    }
+
+    private int findIndex(int[] array, int element) {
+        for (int i = 0; i < array.length; ++i) {
+            if (array[i] == element) return i;
+        }
+        return -1;
+    }
+
+    public int[][] mate(int[] perm1, int[] perm2) {
+        if (currentOperator == OX)
+            return ox(perm1, perm2);
+        if (currentOperator == CX)
+            return cx(perm1, perm2);
+        return cx(perm1, perm2); //default
+    }
+
+    public void setCurrentOperator(int opId) {
+        currentOperator = opId;
+    }
+
     public static void main(String[] args) {
-        int [] perm1 = {7,8,3,6,4,5};
-        int [] perm2 = {8,6,5,3,7,4};
+        int[] perm1 = {7, 8, 3, 6, 4, 5};
+        int[] perm2 = {8, 7, 5, 6, 3, 4};
 
-        CrossoverOperators cops = new CrossoverOperators();
+        CrossoverOperators cops = new CrossoverOperators(CrossoverOperators.CX);
 
-        int [][] res = cops.ox(perm1, perm2);
+        int[][] res = cops.mate(perm1, perm2);
 
-        for(int i: res[0]){
+        for (int i : res[0]) {
             System.out.print(i);
             System.out.print(" ");
         }
         System.out.println();
-        for(int i: res[1]){
+        for (int i : res[1]) {
             System.out.print(i);
             System.out.print(" ");
         }
