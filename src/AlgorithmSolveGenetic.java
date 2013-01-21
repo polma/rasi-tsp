@@ -15,22 +15,24 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
     private int populationSize;
     private CrossoverOperators crossoverOperators;
 
-    public AlgorithmSolveGenetic() {
+    public AlgorithmSolveGenetic(int operatorId) {
         this.iterationsCount = 500;
         this.populationSize = 50;
-        this.crossoverOperators = new CrossoverOperators();
+        this.crossoverOperators = new CrossoverOperators(operatorId);
     }
 
-    public AlgorithmSolveGenetic(int iterationsCount, int populationSize) {
+    public AlgorithmSolveGenetic(int iterationsCount, int populationSize, int operatorId) {
         this.iterationsCount = iterationsCount;
         this.populationSize = populationSize;
-        this.crossoverOperators = new CrossoverOperators();
+        this.crossoverOperators = new CrossoverOperators(operatorId);
     }
 
     @Override
     public int[] run(Problem_instance pi, int[] list) {
         if(list.length == 1)
             return list;
+
+        pi.shortest_paths();
 
         populationSize = populationSize % 2 == 0 ? populationSize : populationSize + 1;
         int[][] population = generateRandomPermutations(list);
@@ -63,7 +65,7 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
                 int index2 = parentIndexes.get(getIndex);
                 alreadySelected[getIndex] = true;
 
-                int[][] offspring = crossoverOperators.ox(population[index1], population[index2]);
+                int[][] offspring = crossoverOperators.mate(population[index1], population[index2]);
                 population[index1] = offspring[0];
                 population[index2] = offspring[1];
             }

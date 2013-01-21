@@ -20,7 +20,7 @@ class Problem_instance
 			n = scanner.nextInt();
 			W = scanner.nextInt();
 	
-			for(int i=1; i<n; i++)
+			for(int i=0; i<n; i++)
 			{
 				for(int j=0; j<i; j++)
 					m[i][j] = m[j][i] = scanner.nextInt();

@@ -10,7 +10,6 @@ class Run_algorithm {
         System.out.println("Running the partitioner...");
         aux = ap.run(pi);
 
-
         for (int[] i : aux) {
             for (int j : i) {
                 System.out.print(j + " ");
