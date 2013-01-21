@@ -29,6 +29,9 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
 
     @Override
     public int[] run(Problem_instance pi, int[] list) {
+        if(list.length == 1)
+            return list;
+
         populationSize = populationSize % 2 == 0 ? populationSize : populationSize + 1;
         int[][] population = generateRandomPermutations(list);
         int halfPopulation = populationSize / 2;
@@ -46,6 +49,7 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
                     parentIndexes.add(random);
                 }
             }
+
             boolean [] alreadySelected = new boolean[populationSize];
             for (int j = 0; j < halfPopulation; j += 2) {
                 int getIndex = rnd.nextInt(halfPopulation);
@@ -53,20 +57,21 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
                     getIndex = rnd.nextInt(halfPopulation);
                 alreadySelected[getIndex] = true;
                 int index1 = parentIndexes.get(getIndex);
+
                 while (alreadySelected[getIndex])
                     getIndex = rnd.nextInt(halfPopulation);
                 int index2 = parentIndexes.get(getIndex);
                 alreadySelected[getIndex] = true;
 
                 int[][] offspring = crossoverOperators.ox(population[index1], population[index2]);
-                population[index1] = offspring[1];
-                population[index2] = offspring[2];
+                population[index1] = offspring[0];
+                population[index2] = offspring[1];
             }
 
             //apply 2-opt on half of the remaining set
             int quarterPopulation = halfPopulation / 2;
             for (int j = 0; j < quarterPopulation; ++j) {
-                int tourIndex = rnd.nextInt();
+                int tourIndex = rnd.nextInt(populationSize);
                 while (chosenParents[tourIndex])
                     tourIndex = rnd.nextInt(populationSize);
                 for (int k = 0; k < 10; ++k) {
@@ -119,6 +124,7 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
     }
 
     private int[][] generateRandomPermutations(int[] list) {
+
         int[][] population = new int[populationSize][list.length];
 
         Random rnd = new Random();
