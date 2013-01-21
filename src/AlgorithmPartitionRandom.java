@@ -17,6 +17,7 @@ public class AlgorithmPartitionRandom implements Algorithm_partition {
         int picked = 0;
         boolean[] alreadyPicked = new boolean[pi.n];
         while (picked < pi.n) {
+            System.out.println("Picked so far: " + picked);
             int currentTotal = 0;
             List<Integer> current = new ArrayList<Integer>();
             while (true) {
@@ -25,12 +26,18 @@ public class AlgorithmPartitionRandom implements Algorithm_partition {
                     if(currentTotal + pi.w[r] <= pi.W){
                         alreadyPicked[r] = true;
                         ++picked;
+                        currentTotal += pi.w[r];
                         current.add(r);
                     }
                     else{
                         result.add(current);
                         break;
                     }
+                }
+                if(picked + current.size() == pi.n){
+                    result.add(current);
+                    picked = pi.n;
+                    break;
                 }
             }
         }
