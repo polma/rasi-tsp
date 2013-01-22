@@ -60,24 +60,24 @@ class Run_algorithm
 		ppi.shortest_paths();
 		
 		if(!ppi.check_integrity())
-			JOptionPane.showMessageDialog(null, "Graf jest niesp�jny",
-    				"B��d", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Graf jest niespójny",
+    				"Błąd", JOptionPane.ERROR_MESSAGE);
 		
 		this.pi = ppi;
 		
-		String x = JOptionPane.showInputDialog(null, "Wybierz algorytm do podzia�u", 
+		String x = JOptionPane.showInputDialog(null, "Wybierz algorytm do podziału",
 			"Algorytm", JOptionPane.INFORMATION_MESSAGE, null, ap, ap[0]).toString();
 			
 		Algorithm_partition app = Alg_part.get(x);
 		
-		x = JOptionPane.showInputDialog(null, "Wybierz algorytm do rozwi�zania", 
+		x = JOptionPane.showInputDialog(null, "Wybierz algorytm do rozwiązania",
 			"Algorytm", JOptionPane.INFORMATION_MESSAGE, null, as, as[0]).toString();
 			
 		Algorithm_solve ass = Alg_solve.get(x);
 		
 		int minn = pi.count_max();
 		
-        x = JOptionPane.showInputDialog("Podaj pojemno�� ci�ar�wki (minimum "+minn+")");
+        x = JOptionPane.showInputDialog("Podaj pojemność ciężarówki (minimum "+minn+")");
         pi.W = Integer.parseInt(x);
 
 		System.out.println("Starting the partitioner...");
