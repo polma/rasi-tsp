@@ -127,21 +127,21 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener
         {
         	if(parent.mode == 11)
         	{
-        		String in = JOptionPane.showInputDialog("Podaj wagê krawêdzi");
+        		String in = JOptionPane.showInputDialog("Podaj wagï¿½ krawï¿½dzi");
         		int nr1 = pi.find(pressed_x, pressed_y);
         		int nr2 = pi.find(px, py);
         		pi.set_edge(Integer.parseInt(in), nr1, nr2);
         	}
         	else if(parent.mode == 12)
         	{
-        		String in = JOptionPane.showInputDialog("Podaj now¹ wagê krawêdzi");
+        		String in = JOptionPane.showInputDialog("Podaj nowï¿½ wagï¿½ krawï¿½dzi");
         		int nr1 = pi.find(pressed_x, pressed_y);
         		int nr2 = pi.find(px, py);
         		pi.set_edge(Integer.parseInt(in), nr1, nr2);
         	}
         	else if(parent.mode == 13)
         	{
-        		//String in = JOptionPane.showInputDialog("Podaj wagê krawêdzi");
+        		//String in = JOptionPane.showInputDialog("Podaj wagï¿½ krawï¿½dzi");
         		int nr1 = pi.find(pressed_x, pressed_y);
         		int nr2 = pi.find(px, py);
         		pi.set_edge(-1, nr1, nr2);
@@ -164,20 +164,39 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener
         int px = e.getX()/sq;
         int py = e.getY()/sq;
         
+        if (e.getClickCount() == 2)
+        {
+            int nr = pi.find(px, py);
+            if (nr == -1)
+            {
+                String in = JOptionPane.showInputDialog("Podaj wagÄ™ wierzchoï¿½ka");
+        	if (in != null)
+                    pi.add_node(Integer.parseInt(in), px, py);
+            }
+            else
+            {
+                String in = JOptionPane.showInputDialog("Podaj nowÄ… wagÄ™ wierzchoï¿½ka");
+                if (in != null)
+                    pi.edit_node(Integer.parseInt(in), nr);
+            }
+        }
+        
         if(parent.mode == 1)
         {
-        	String in = JOptionPane.showInputDialog("Podaj wagê wierzcho³ka");
-        	pi.add_node(Integer.parseInt(in), px, py);
+        	String in = JOptionPane.showInputDialog("Podaj wagï¿½ wierzchoï¿½ka");
+        	if (in != null)
+                    pi.add_node(Integer.parseInt(in), px, py);
         }
         else if(parent.mode == 2)
         {
-        	String in = JOptionPane.showInputDialog("Podaj now¹ wagê wierzcho³ka");
+        	String in = JOptionPane.showInputDialog("Podaj nowï¿½ wagï¿½ wierzchoï¿½ka");
         	int nr = pi.find(px, py);
-        	pi.edit_node(Integer.parseInt(in), nr);
+                if (in != null)
+                    pi.edit_node(Integer.parseInt(in), nr);
         }
         else if(parent.mode == 3)
         {
-        	//String in = JOptionPane.showInputDialog("Podaj now¹ wagê wierzcho³ka");
+        	//String in = JOptionPane.showInputDialog("Podaj nowï¿½ wagï¿½ wierzchoï¿½ka");
         	int nr = pi.find(px, py);
         	pi.remove_node(nr);
         }
