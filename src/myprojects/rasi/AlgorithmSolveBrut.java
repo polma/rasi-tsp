@@ -63,9 +63,9 @@ class AlgorithmSolveBrut implements AlgorithmSolve, Callable{
     public int[] call() throws Exception {
         best = new int[tab.length];
 
-        if(pi.n > 10)
-                JOptionPane.showMessageDialog(null, "n > 10, bÄ™dzie dÅ‚ugo dziaÅ‚aÅ‚o",
-                        "Warning", JOptionPane.ERROR_MESSAGE);
+        /*if(pi.n > 10)
+                JOptionPane.showMessageDialog(null, "n > 10, bêdzie d³ugo dzia³a³o",
+                        "Warning", JOptionPane.ERROR_MESSAGE);*/
 
         result = 1000000007;
 
