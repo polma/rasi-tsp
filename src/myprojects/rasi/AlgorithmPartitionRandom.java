@@ -49,6 +49,7 @@ public class AlgorithmPartitionRandom implements Algorithm_partition {
         //convert to int[][]
         int [][] resultArray = new int[result.size()][];
         int index  = 0;
+        System.out.println("Greedy partition: ");
         for(List a: result){
             resultArray[index++] = listToArray(a);
         }
@@ -57,14 +58,15 @@ public class AlgorithmPartitionRandom implements Algorithm_partition {
     }
 
     private int[] listToArray(List<Integer> list){
-    	System.out.println("W Greedy'm");
         int [] result = new int[list.size()];
         for(int i =0; i<list.size(); ++i)
             result[i] = list.get(i);
             
         for(int i=0; i < result.length; i++)
         	System.out.print(result[i] + " ");
-        System.out.println(" ");
+        System.out.println();
+
         return result;
     }
+    Object c = AlgorithmPartitionRandom.class;
 }

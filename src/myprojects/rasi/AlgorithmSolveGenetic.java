@@ -25,8 +25,8 @@ public class AlgorithmSolveGenetic implements Algorithm_solve, Callable {
     public AlgorithmSolveGenetic(Problem_instance pi, int[] list) {
         this.pi = pi;
         this.list = list;
-        this.iterationsCount = 20;
-        this.populationSize = 12;
+        this.iterationsCount = 400;
+        this.populationSize = 40;
         this.crossoverOperators = new CrossoverOperators(CrossoverOperators.CX);
     }
 
