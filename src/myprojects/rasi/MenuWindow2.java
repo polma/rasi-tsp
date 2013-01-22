@@ -8,9 +8,9 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
  
-class Menu_window_2 extends JFrame 
+class MenuWindow2 extends JFrame 
 { 
-	public Problem_instance pi;
+	public ProblemInstance pi;
 	public JLabel label, label2;
 	public DrawPanel dp;
 	public JList listbox;
@@ -18,7 +18,7 @@ class Menu_window_2 extends JFrame
 	int mode = 0;
 	HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
 	
-    public Menu_window_2(Problem_instance ppi) 
+    public MenuWindow2(ProblemInstance ppi) 
     {
     	pi = ppi;
     
@@ -245,7 +245,7 @@ class Menu_window_2 extends JFrame
 		    public void actionPerformed(ActionEvent e) {
 		    	
             	JFileChooser fc = new JFileChooser();
-            	int returnVal = fc.showOpenDialog(Menu_window_2.this);
+            	int returnVal = fc.showOpenDialog(MenuWindow2.this);
  
 	            if (returnVal == JFileChooser.APPROVE_OPTION) 
 	            {
@@ -261,7 +261,7 @@ class Menu_window_2 extends JFrame
 		menuItem.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
             	JFileChooser fc = new JFileChooser();
-            	int returnVal = fc.showOpenDialog(Menu_window_2.this);
+            	int returnVal = fc.showOpenDialog(MenuWindow2.this);
  
 	            if (returnVal == JFileChooser.APPROVE_OPTION) 
 	            {
@@ -290,7 +290,7 @@ class Menu_window_2 extends JFrame
 		    public void actionPerformed(ActionEvent e) {
 		    	label.setText("Algorytm uruchomiony, trwają obliczenia...");
 		    	
-		    	Run_algorithm ra = new Run_algorithm(pi);
+		    	RunAlgorithm ra = new RunAlgorithm(pi);
 		    	int[][] sol = ra.solution;
 		    	update_list(sol);
 		    	listScroller.setVisible(true);

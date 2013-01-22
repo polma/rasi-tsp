@@ -7,22 +7,22 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-class Run_window extends JFrame 
+class RunWindow extends JFrame 
 { 
-	Problem_instance pi;
+	ProblemInstance pi;
 	JTextArea tf;
 	JComboBox cb1, cb2;
 	
-	HashMap <String, Algorithm_partition> Alg_part;
-	HashMap <String, Algorithm_solve> Alg_solve;
+	HashMap <String, AlgorithmPartition> Alg_part;
+	HashMap <String, AlgorithmSolve> Alg_solve;
 	String[] ap, as;
 	
 	void set_alg()
 	{
-		Alg_part = new HashMap <String, Algorithm_partition>();
-		Alg_solve = new HashMap <String, Algorithm_solve>();
+		Alg_part = new HashMap <String, AlgorithmPartition>();
+		Alg_solve = new HashMap <String, AlgorithmSolve>();
 			
-		Alg_part.put("Algo 1", new Algorithm_partition_1());
+		Alg_part.put("Algo 1", new AlgorithmPartition1());
 		//Alg_solve.put("Algo 1", new Algorithm_solve_1());
 		
 		Object[] o = Alg_part.keySet().toArray();
@@ -53,7 +53,7 @@ class Run_window extends JFrame
 		System.out.println(x);
 	}
 	
-    public Run_window(Problem_instance ppi) 
+    public RunWindow(ProblemInstance ppi) 
     {
     	set_alg();
     	
@@ -110,17 +110,17 @@ class Run_window extends JFrame
         
         class AL1 implements ActionListener
     	{
-    		Run_window e;
+    		RunWindow e;
     		
-    		AL1(Run_window ee)
+    		AL1(RunWindow ee)
     		{
     			this.e = ee;
     		}
     		
             public void actionPerformed(ActionEvent ae) 
             {
-            	Algorithm_partition ap1 = Alg_part.get((String)(e.cb1.getSelectedItem()));
-            	Algorithm_solve as1 = Alg_solve.get((String)(e.cb2.getSelectedItem()));
+            	AlgorithmPartition ap1 = Alg_part.get((String)(e.cb1.getSelectedItem()));
+            	AlgorithmSolve as1 = Alg_solve.get((String)(e.cb2.getSelectedItem()));
             	
             	//myprojects.rasi.Run_algorithm ra = new myprojects.rasi.Run_algorithm(pi, ap1, as1);
             	
@@ -133,9 +133,9 @@ class Run_window extends JFrame
         
         class AL5 implements ActionListener
     	{
-    		Run_window e;
+    		RunWindow e;
     		
-    		AL5(Run_window ee)
+    		AL5(RunWindow ee)
     		{
     			this.e = ee;
     		}

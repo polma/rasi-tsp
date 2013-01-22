@@ -13,16 +13,16 @@ import java.util.concurrent.Callable;
  * Time: 8:55 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AlgorithmSolveGenetic implements Algorithm_solve, Callable {
+public class AlgorithmSolveGenetic implements AlgorithmSolve, Callable {
 
     private int iterationsCount;
     private int populationSize;
-    private Problem_instance pi;
+    private ProblemInstance pi;
     private int[] list;
     
     private CrossoverOperators crossoverOperators;
     
-    public AlgorithmSolveGenetic(Problem_instance pi, int[] list) {
+    public AlgorithmSolveGenetic(ProblemInstance pi, int[] list) {
         this.pi = pi;
         this.list = list;
         this.iterationsCount = 400;
@@ -30,7 +30,7 @@ public class AlgorithmSolveGenetic implements Algorithm_solve, Callable {
         this.crossoverOperators = new CrossoverOperators(CrossoverOperators.CX);
     }
 
-    public AlgorithmSolveGenetic(int operatorId, Problem_instance pi, int[] list) {
+    public AlgorithmSolveGenetic(int operatorId, ProblemInstance pi, int[] list) {
         this.pi = pi;
         this.list = list;
         this.iterationsCount = 500;
@@ -39,7 +39,7 @@ public class AlgorithmSolveGenetic implements Algorithm_solve, Callable {
     }
 
     public AlgorithmSolveGenetic(int iterationsCount, int populationSize, int operatorId,
-                                 Problem_instance pi, int[] list) {
+                                 ProblemInstance pi, int[] list) {
         this.pi = pi;
         this.list = list;
         this.iterationsCount = iterationsCount;
@@ -154,7 +154,7 @@ public class AlgorithmSolveGenetic implements Algorithm_solve, Callable {
         return population[minTourIndex];
     }
 
-    private int computeTourWeight(Problem_instance pi, int[] tour){
+    private int computeTourWeight(ProblemInstance pi, int[] tour){
         int total = 0;
         assert(tour.length > 1);
         for(int i=1; i<tour.length; ++i){

@@ -5,14 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class Get_data_window extends JFrame 
+class GetDataWindow extends JFrame 
 { 
 	int[] data;
 	JLabel[] label;
 	JTextField[] tf;
 	int size;
 
-    public Get_data_window(String[] str) 
+    public GetDataWindow(String[] str) 
     {
     	
         setSize(400, 400);
@@ -53,9 +53,9 @@ class Get_data_window extends JFrame
         
         class AL5 implements ActionListener
     	{
-    		Get_data_window e;
+    		GetDataWindow e;
     		
-    		AL5(Get_data_window ee)
+    		AL5(GetDataWindow ee)
     		{
     			this.e = ee;
     		}

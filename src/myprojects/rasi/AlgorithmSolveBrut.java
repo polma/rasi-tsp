@@ -5,12 +5,12 @@ package myprojects.rasi;
 import java.util.concurrent.Callable;
 import javax.swing.*;
 
-class AlgorithmSolveBrut implements Algorithm_solve, Callable{
+class AlgorithmSolveBrut implements AlgorithmSolve, Callable{
     int[] tab, best;
     int result, sum;
-    Problem_instance pi;
+    ProblemInstance pi;
 
-    public AlgorithmSolveBrut(Problem_instance pi, int[] list){
+    public AlgorithmSolveBrut(ProblemInstance pi, int[] list){
         this.pi = pi;
         this.tab = list;
     }

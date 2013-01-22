@@ -12,9 +12,9 @@ import java.util.Random;
  * Time: 2:13 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AlgorithmPartitionRandom implements Algorithm_partition {
+public class AlgorithmPartitionRandom implements AlgorithmPartition {
     @Override
-    public int[][] run(Problem_instance pi) {
+    public int[][] run(ProblemInstance pi) {
         Random rnd = new Random();
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         int picked = 0;

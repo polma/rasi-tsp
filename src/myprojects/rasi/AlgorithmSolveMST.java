@@ -4,11 +4,11 @@ package myprojects.rasi;
 
 import java.util.concurrent.Callable;
 
-class AlgorithmSolveMST implements Algorithm_solve, Callable{
-    private Problem_instance pi;
+class AlgorithmSolveMST implements AlgorithmSolve, Callable{
+    private ProblemInstance pi;
     private int[] list;
     
-    public AlgorithmSolveMST(Problem_instance pi, int[] list){
+    public AlgorithmSolveMST(ProblemInstance pi, int[] list){
         this.pi = pi;
         this.list = list;
     }

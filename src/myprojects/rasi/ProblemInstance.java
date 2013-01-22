@@ -5,16 +5,16 @@ package myprojects.rasi;
 import java.util.*;
 import java.io.*;
 
-class Problem_instance
+class ProblemInstance
 {
-	public int n, W;
+        public int n, W;
 	public int[] w = new int[1005];
 	public int[][] m = new int[1005][1005];
 	public int[][] min_m = new int[1005][1005], min_to = new int[1005][1005];
 	public int[] x = new int[1005], y = new int[1005];
 	public boolean[] visited = new boolean[1005];
 	
-	public Problem_instance() {}
+	public ProblemInstance() {}
 	
 	public void load_from_file(String file_name)
 	{

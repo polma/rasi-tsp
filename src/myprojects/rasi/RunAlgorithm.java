@@ -8,19 +8,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-class Run_algorithm {
+class RunAlgorithm {
     int[][] solution, aux;
-    Problem_instance pi;
+    ProblemInstance pi;
 
-    HashMap<String, Algorithm_partition> Alg_part;
-    HashMap<String, Algorithm_solve> Alg_solve;
+    HashMap<String, AlgorithmPartition> Alg_part;
+    HashMap<String, AlgorithmSolve> Alg_solve;
     String[] ap, as;
 
     void set_alg() {
-        Alg_part = new HashMap<String, Algorithm_partition>();
-        Alg_solve = new HashMap<String, Algorithm_solve>();
+        Alg_part = new HashMap<String, AlgorithmPartition>();
+        Alg_solve = new HashMap<String, AlgorithmSolve>();
 
-        Alg_part.put("Algo 1", new Algorithm_partition_1());
+        Alg_part.put("Algo 1", new AlgorithmPartition1());
         //Alg_solve.put("Algo 1", new Algorithm_solve_1());
         Alg_part.put("Random Greedy", new AlgorithmPartitionRandom());
         //Alg_solve.put("Genetic", new AlgorithmSolveGenetic());
@@ -58,7 +58,7 @@ class Run_algorithm {
 		System.out.println(x);*/
     }
 
-    Run_algorithm(Problem_instance ppi) {
+    RunAlgorithm(ProblemInstance ppi) {
         set_alg();
         ppi.shortest_paths();
 
@@ -71,7 +71,7 @@ class Run_algorithm {
         String x = JOptionPane.showInputDialog(null, "Wybierz algorytm do podzia�u",
                 "Algorytm", JOptionPane.INFORMATION_MESSAGE, null, ap, ap[0]).toString();
 
-        Algorithm_partition app = Alg_part.get(x);
+        AlgorithmPartition app = Alg_part.get(x);
 
         String algorithmName = JOptionPane.showInputDialog(null, "Wybierz algorytm do rozwi�zania",
                 "Algorytm", JOptionPane.INFORMATION_MESSAGE, null, as, as[0]).toString();
@@ -94,7 +94,7 @@ class Run_algorithm {
         if (algorithmName.equalsIgnoreCase("algo 1")) {
             for (int i = 0; i < aux.length; i++) {
                 futures[i] = executor.submit(
-                        new Algorithm_solve_1(pi, aux[i]));
+                        new AlgorithmSolve1(pi, aux[i]));
             }
         } else if (algorithmName.equalsIgnoreCase("genetic")) {
             for (int i = 0; i < aux.length; i++) {

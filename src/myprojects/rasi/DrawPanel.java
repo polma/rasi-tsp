@@ -10,14 +10,14 @@ import java.util.*;
 
 class DrawPanel extends JPanel implements MouseListener, MouseMotionListener
 {   
-	Menu_window_2 parent;
-	Problem_instance pi;    	
+	MenuWindow2 parent;
+	ProblemInstance pi;    	
 	int sq = 10;
 	int pressed_x = -1, pressed_y = -1, pos_x = -1, pos_y = -1;
 	int actual = -1, prev = -1;
 	//boolean[][] visited = new boolean[1005][1005];
 
-	DrawPanel(Problem_instance ppi, Menu_window_2 par)
+	DrawPanel(ProblemInstance ppi, MenuWindow2 par)
 	{
 		pi = ppi;
 		parent = par;
@@ -170,13 +170,13 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener
             if (nr == -1)
             {
                 String in = JOptionPane.showInputDialog("Podaj wagę wierzcho�ka");
-        	if (in != null)
+        	if (in != null && !in.isEmpty())
                     pi.add_node(Integer.parseInt(in), px, py);
             }
             else
             {
                 String in = JOptionPane.showInputDialog("Podaj nową wagę wierzcho�ka");
-                if (in != null)
+                if (in != null && !in.isEmpty())
                     pi.edit_node(Integer.parseInt(in), nr);
             }
         }
@@ -184,14 +184,14 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener
         if(parent.mode == 1)
         {
         	String in = JOptionPane.showInputDialog("Podaj wag� wierzcho�ka");
-        	if (in != null)
+        	if (in != null && !in.isEmpty())
                     pi.add_node(Integer.parseInt(in), px, py);
         }
         else if(parent.mode == 2)
         {
         	String in = JOptionPane.showInputDialog("Podaj now� wag� wierzcho�ka");
         	int nr = pi.find(px, py);
-                if (in != null)
+                if (in != null && !in.isEmpty())
                     pi.edit_node(Integer.parseInt(in), nr);
         }
         else if(parent.mode == 3)
@@ -211,7 +211,7 @@ class DrawPanel extends JPanel implements MouseListener, MouseMotionListener
         parent.setMode(0);
 	    repaint();
     }
-     
+    
     public void mouseMoved(MouseEvent e) {
         pos_x = e.getX()/sq;
         pos_y = e.getY()/sq;

@@ -5,11 +5,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
  
-class Main_window extends JFrame 
+class MainWindow extends JFrame 
 { 
-	Problem_instance pi;
+	ProblemInstance pi;
 	
-    public Main_window(Problem_instance ppi) 
+    public MainWindow(ProblemInstance ppi) 
     {
     	pi = ppi;
     
@@ -29,7 +29,7 @@ class Main_window extends JFrame
         {
             public void actionPerformed(ActionEvent ae) 
             {
-            	Editor_window ed = new Editor_window(pi);
+            	EditorWindow ed = new EditorWindow(pi);
             }
         });
         
@@ -41,7 +41,7 @@ class Main_window extends JFrame
         {
             public void actionPerformed(ActionEvent ae) 
             {
-            	Run_window ed = new Run_window(pi);
+            	RunWindow ed = new RunWindow(pi);
             }
         });
         

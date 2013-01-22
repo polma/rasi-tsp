@@ -6,12 +6,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
-class Editor_window extends JFrame 
+class EditorWindow extends JFrame 
 { 
-	Problem_instance pi;
+	ProblemInstance pi;
 	JTextArea tf;
 	
-    public Editor_window(Problem_instance ppi) 
+    public EditorWindow(ProblemInstance ppi) 
     {
     	pi = ppi;
     	
@@ -44,7 +44,7 @@ class Editor_window extends JFrame
         add_v.setVisible(true);
         vb.add(add_v);
         
-		JButton remove_v = new JButton("USUÑ WIERZCHOLEK"); 
+		JButton remove_v = new JButton("USUï¿½ WIERZCHOLEK"); 
         remove_v.setVisible(true);
         vb.add(remove_v);
 		
@@ -64,9 +64,9 @@ class Editor_window extends JFrame
         
         class AL1 implements ActionListener
     	{
-    		Editor_window e;
+    		EditorWindow e;
     		
-    		AL1(Editor_window ee)
+    		AL1(EditorWindow ee)
     		{
     			this.e = ee;
     		}
@@ -77,11 +77,11 @@ class Editor_window extends JFrame
             	
             	for(int i=0; i<pi.n; i++)
             	{
-            		str[i] = new String("Podaj d³ugoœæ krawêdzi do " + i);
+            		str[i] = new String("Podaj dï¿½ugoï¿½ï¿½ krawï¿½dzi do " + i);
             	}
-            	str[pi.n] = new String("Podaj wagê wierzcho³ka");
+            	str[pi.n] = new String("Podaj wagï¿½ wierzchoï¿½ka");
             	
-            	Get_data_window gd = new Get_data_window(str);
+            	GetDataWindow gd = new GetDataWindow(str);
             	
             	int[] data = gd.data;
             	
@@ -96,9 +96,9 @@ class Editor_window extends JFrame
         
         class AL2 implements ActionListener
     	{
-    		Editor_window e;
+    		EditorWindow e;
     		
-    		AL2(Editor_window ee)
+    		AL2(EditorWindow ee)
     		{
     			this.e = ee;
     		}
@@ -106,9 +106,9 @@ class Editor_window extends JFrame
             public void actionPerformed(ActionEvent ae) 
             {
             	String[] str = new String[1];
-            	str[0] = new String("Podaj numer wierzcho³ka do kasacji:");
+            	str[0] = new String("Podaj numer wierzchoï¿½ka do kasacji:");
             	
-            	Get_data_window gd = new Get_data_window(str);
+            	GetDataWindow gd = new GetDataWindow(str);
             	
             	int nr = gd.data[0];
             	
@@ -124,9 +124,9 @@ class Editor_window extends JFrame
         
         class AL3 implements ActionListener
     	{
-    		Editor_window e;
+    		EditorWindow e;
     		
-    		AL3(Editor_window ee)
+    		AL3(EditorWindow ee)
     		{
     			this.e = ee;
     		}
@@ -134,7 +134,7 @@ class Editor_window extends JFrame
             public void actionPerformed(ActionEvent ae) 
             {
             	JFileChooser fc = new JFileChooser();
-            	int returnVal = fc.showOpenDialog(Editor_window.this);
+            	int returnVal = fc.showOpenDialog(EditorWindow.this);
  
 	            if (returnVal == JFileChooser.APPROVE_OPTION) 
 	            {
@@ -151,9 +151,9 @@ class Editor_window extends JFrame
         
         class AL4 implements ActionListener
     	{
-    		Editor_window e;
+    		EditorWindow e;
     		
-    		AL4(Editor_window ee)
+    		AL4(EditorWindow ee)
     		{
     			this.e = ee;
     		}
@@ -161,7 +161,7 @@ class Editor_window extends JFrame
             public void actionPerformed(ActionEvent ae) 
             {
             	JFileChooser fc = new JFileChooser();
-            	int returnVal = fc.showOpenDialog(Editor_window.this);
+            	int returnVal = fc.showOpenDialog(EditorWindow.this);
  
 	            if (returnVal == JFileChooser.APPROVE_OPTION) 
 	            {
@@ -182,9 +182,9 @@ class Editor_window extends JFrame
         
         class AL5 implements ActionListener
     	{
-    		Editor_window e;
+    		EditorWindow e;
     		
-    		AL5(Editor_window ee)
+    		AL5(EditorWindow ee)
     		{
     			this.e = ee;
     		}

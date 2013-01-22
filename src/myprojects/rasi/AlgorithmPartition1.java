@@ -4,9 +4,9 @@ package myprojects.rasi;
 
 import java.util.*;
 
-class Algorithm_partition_1 implements Algorithm_partition
+class AlgorithmPartition1 implements AlgorithmPartition
 {
-	public int[][] run(Problem_instance pi)
+	public int[][] run(ProblemInstance pi)
 	{
 		int[][] list = new int[pi.n-1][];
 		
