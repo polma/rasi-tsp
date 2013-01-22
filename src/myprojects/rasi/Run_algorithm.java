@@ -1,8 +1,12 @@
 package myprojects.rasi;
 
-import javax.swing.*;
 import java.util.ArrayList;
+import javax.swing.*;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 class Run_algorithm
 {
@@ -19,22 +23,24 @@ class Run_algorithm
 		Alg_solve = new HashMap <String, Algorithm_solve>();
 			
 		Alg_part.put("Algo 1", new Algorithm_partition_1());
-		Alg_solve.put("Algo 1", new Algorithm_solve_1());
+		//Alg_solve.put("Algo 1", new Algorithm_solve_1());
 		Alg_part.put("Random Greedy", new AlgorithmPartitionRandom());
-		Alg_solve.put("Genetic", new AlgorithmSolveGenetic());
+		//Alg_solve.put("Genetic", new AlgorithmSolveGenetic());
 		Alg_part.put("Boruvka", new AlgorithmPartitionBoruvka());
-		Alg_solve.put("MST", new AlgorithmSolveMST());
-		Alg_solve.put("Brut", new AlgorithmSolveBrut());
+		//Alg_solve.put("MST", new AlgorithmSolveMST());
+		//Alg_solve.put("Brut", new AlgorithmSolveBrut());
 		
 		Object[] o = Alg_part.keySet().toArray();
 		ap = new String[o.length];
 		for(int i=0; i<o.length; i++)
 			ap[i] = o[i].toString();
 		
-		o = Alg_solve.keySet().toArray();
-		as = new String[o.length];
-		for(int i=0; i<o.length; i++)
-			as[i] = o[i].toString();
+		//o = Alg_solve.keySet().toArray();
+		as = new String[4];
+		as[0] = "Algo 1";
+                as[1] = "Genetic";
+                as[2] = "MST";
+                as[3] = "Brut";
 			
 		//Object x = JOptionPane.showInputDialog(null, "abc", "def", JOptionPane.QUESTION_MESSAGE);
 		/*,	
@@ -70,30 +76,78 @@ class Run_algorithm
 			
 		Algorithm_partition app = Alg_part.get(x);
 		
-		x = JOptionPane.showInputDialog(null, "Wybierz algorytm do rozwi�zania", 
+		String algorithmName = JOptionPane.showInputDialog(null, "Wybierz algorytm do rozwi�zania", 
 			"Algorytm", JOptionPane.INFORMATION_MESSAGE, null, as, as[0]).toString();
-			
-		Algorithm_solve ass = Alg_solve.get(x);
+		
+                
 		
 		int minn = pi.count_max();
 		
-        x = JOptionPane.showInputDialog("Podaj pojemno�� ci�ar�wki (minimum "+minn+")");
+        x = JOptionPane.showInputDialog("Podaj pojemność ciężarówki (minimum "+minn+")");
         pi.W = Integer.parseInt(x);
+        
 
 		System.out.println("Starting the partitioner...");
 		aux = app.run(pi);
-		
+		ExecutorService executor = Executors.newFixedThreadPool(aux.length);
+                Future[] futures = new Future[aux.length];
 		solution = new int[aux.length][];
+                
+                System.out.println("Starting solving the pieces...");
+                switch (algorithmName)
+                {
+                    case "Algo 1":
+                        for(int i = 0; i < aux.length; i++)
+                        {
+                            futures[i] = executor.submit(
+                                    new Algorithm_solve_1(pi, aux[i]));
+                        }
+                        break;
+                    case "Genetic":
+                        for(int i = 0; i < aux.length; i++)
+                        {
+                            futures[i] = executor.submit(
+                                    new AlgorithmSolveGenetic(pi, aux[i]));
+                        }
+                        break;
+                    case "MST":
+                        for (int i = 0; i < aux.length; i++)
+                        {
+                            futures[i] = executor.submit(
+                                    new AlgorithmSolveMST(pi, aux[i]));
+                        }
+                        break;
+                    case "Brut":
+                        for (int i = 0; i < aux.length; i++)
+                        {
+                            futures[i] = executor.submit(
+                                    new AlgorithmSolveBrut(pi, aux[i]));
+                        }
+                        break;
+                }
+		//Algorithm_solve ass = Alg_solve.get(x);
 		
-		System.out.println("Starting solving the pieces...");
+		
 		for(int i=0; i<aux.length; i++)
 		{
-			int[] res = ass.run(pi, aux[i]);
-			for(int j: res)
-    			System.out.print(" " + j);
-    		System.out.println();
-			solution[i] = extend(res);
-		}
+                    do 
+                    {
+                        try
+                        {
+                            int[] result = (int[])futures[i].get();
+                            for(int j: result)
+                            System.out.print(" " + j);
+                            System.out.println();
+                            solution[i] = extend(result);
+                        }
+                        catch(InterruptedException e) {}
+                        catch(ExecutionException e)
+                        {
+                            System.out.println(e);
+                        }
+                    }while(!futures[i].isDone());
+                }
+                    //int[] res = ass.run(pi, aux[i]);
 		System.out.println("W run_alg-----");	
 	}
 	

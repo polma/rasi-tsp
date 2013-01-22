@@ -4,6 +4,7 @@ package myprojects.rasi;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.Callable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,33 +13,42 @@ import java.util.Random;
  * Time: 8:55 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AlgorithmSolveGenetic implements Algorithm_solve {
+public class AlgorithmSolveGenetic implements Algorithm_solve, Callable {
 
     private int iterationsCount;
     private int populationSize;
+    private Problem_instance pi;
+    private int[] list;
     
     private CrossoverOperators crossoverOperators;
     
-    public AlgorithmSolveGenetic() {
+    public AlgorithmSolveGenetic(Problem_instance pi, int[] list) {
+        this.pi = pi;
+        this.list = list;
         this.iterationsCount = 20;
         this.populationSize = 12;
         this.crossoverOperators = new CrossoverOperators(CrossoverOperators.CX);
     }
 
-    public AlgorithmSolveGenetic(int operatorId) {
+    public AlgorithmSolveGenetic(int operatorId, Problem_instance pi, int[] list) {
+        this.pi = pi;
+        this.list = list;
         this.iterationsCount = 500;
         this.populationSize = 50;
         this.crossoverOperators = new CrossoverOperators(operatorId);
     }
 
-    public AlgorithmSolveGenetic(int iterationsCount, int populationSize, int operatorId) {
+    public AlgorithmSolveGenetic(int iterationsCount, int populationSize, int operatorId,
+                                 Problem_instance pi, int[] list) {
+        this.pi = pi;
+        this.list = list;
         this.iterationsCount = iterationsCount;
         this.populationSize = populationSize;
         this.crossoverOperators = new CrossoverOperators(operatorId);
     }
 
     @Override
-    public int[] run(Problem_instance pi, int[] list) {
+    public int[] call() {
         if(list.length == 1)
             return list;
 

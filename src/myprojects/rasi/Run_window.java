@@ -23,7 +23,7 @@ class Run_window extends JFrame
 		Alg_solve = new HashMap <String, Algorithm_solve>();
 			
 		Alg_part.put("Algo 1", new Algorithm_partition_1());
-		Alg_solve.put("Algo 1", new Algorithm_solve_1());
+		//Alg_solve.put("Algo 1", new Algorithm_solve_1());
 		
 		Object[] o = Alg_part.keySet().toArray();
 		ap = new String[o.length];
