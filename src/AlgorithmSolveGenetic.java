@@ -1,3 +1,6 @@
+
+package myprojects.rasi;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -13,7 +16,14 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
 
     private int iterationsCount;
     private int populationSize;
+    
     private CrossoverOperators crossoverOperators;
+    
+    public AlgorithmSolveGenetic() {
+        this.iterationsCount = 20;
+        this.populationSize = 12;
+        this.crossoverOperators = new CrossoverOperators(CrossoverOperators.CX);
+    }
 
     public AlgorithmSolveGenetic(int operatorId) {
         this.iterationsCount = 500;
@@ -32,13 +42,14 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
         if(list.length == 1)
             return list;
 
-        pi.shortest_paths();
+        //pi.shortest_paths();
 
         populationSize = populationSize % 2 == 0 ? populationSize : populationSize + 1;
         int[][] population = generateRandomPermutations(list);
         int halfPopulation = populationSize / 2;
 
         Random rnd = new Random();
+        System.out.println("1");
         for (int i = 0; i < iterationsCount; ++i) {
             //pick 50% of population and combine pairs
             ArrayList<Integer> parentIndexes = new ArrayList<Integer>();
@@ -53,29 +64,42 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
             }
 
             boolean [] alreadySelected = new boolean[populationSize];
-            for (int j = 0; j < halfPopulation; j += 2) {
+            
+            System.out.println("Population size " + populationSize);
+            System.out.println("Half size " + populationSize);
+            for (int j = 0; j < halfPopulation; j += 2) {            	
+            	System.out.println("e");
                 int getIndex = rnd.nextInt(halfPopulation);
                 while (alreadySelected[getIndex])
                     getIndex = rnd.nextInt(halfPopulation);
                 alreadySelected[getIndex] = true;
                 int index1 = parentIndexes.get(getIndex);
+                System.out.println("f");
 
                 while (alreadySelected[getIndex])
                     getIndex = rnd.nextInt(halfPopulation);
                 int index2 = parentIndexes.get(getIndex);
                 alreadySelected[getIndex] = true;
-
+                
+				System.out.println("b");
                 int[][] offspring = crossoverOperators.mate(population[index1], population[index2]);
+                System.out.println("c");
                 population[index1] = offspring[0];
                 population[index2] = offspring[1];
+                System.out.println(index1 + "+" + index2);
+                System.out.println("d");
             }
-
+			System.out.println("a");
             //apply 2-opt on half of the remaining set
             int quarterPopulation = halfPopulation / 2;
+            System.out.println("Qrt " + quarterPopulation);
+            if(list.length <= 2) quarterPopulation = 0;
             for (int j = 0; j < quarterPopulation; ++j) {
+            	System.out.println("c1");
                 int tourIndex = rnd.nextInt(populationSize);
                 while (chosenParents[tourIndex])
                     tourIndex = rnd.nextInt(populationSize);
+                System.out.println("c2 ll " + list.length);
                 for (int k = 0; k < 10; ++k) {
                     //pick two pairs of adjacent cities
                     int i1 = 1, i2 = 1;
@@ -85,7 +109,8 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
                         if (Math.abs(i1 - i2) <= 1)
                             i1 = i2;
                     }
-
+                    
+                    System.out.println(i1 + "////" + i2);
                     //check the 2opt condition
                     //reorder the cities if condition satisfied
                     int distance1 = pi.min_m[population[tourIndex][i1]][population[tourIndex][i1 + 1]] +
@@ -97,11 +122,14 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
                         population[tourIndex][i1 + 1] = population[tourIndex][i2];
                         population[tourIndex][i2] = temp;
                     }
+                    System.out.println("c3");
 
                     //we may wish to apply or-opt here
                 }
             }
         }
+        
+        System.out.println("2");
         //choose the best tour and return it
         int minTourIndex = 0;
         int minTourWeight = computeTourWeight(pi, population[0]);

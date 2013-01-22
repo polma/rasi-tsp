@@ -4,7 +4,7 @@ package myprojects.rasi;
 
 import java.util.*;
 
-class Algorithm_partition_1 implements Algorithm_partition
+class AlgorithmPartitionBoruvka implements Algorithm_partition
 {
 	public int[][] run(Problem_instance pi)
 	{

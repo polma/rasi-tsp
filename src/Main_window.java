@@ -1,3 +1,6 @@
+
+package myprojects.rasi;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,7 +12,7 @@ class Main_window extends JFrame
     public Main_window(Problem_instance ppi) 
     {
     	pi = ppi;
-    	
+    
         setSize(400, 200);
         setTitle("RASI");
         //JPanel panel = new JPanel();

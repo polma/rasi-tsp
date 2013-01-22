@@ -1,0 +1,33 @@
+! ** JCreator Project File (C)2000
+! ********** DO NOT EDIT *********
+
+VERSION := "1.10"
+LABEL := "RASI"
+JDKPROFILE := ""
+ACTIVE := "1"
+OUTPUTPATH := "classes"
+COMPILER := ""
+
+! Start RunTime Configuration Structure
+#[BeginRunTime]LABEL := "<Default>" RUNAPPLIC := "" RUNAPPLET := "" PARAM := "" RUN := "myprojects.rasi.RASI" CHECK := "10" #[EndRunTime]
+! Start Required Libraries Structure
+
+! Start Project Folder Structure
+#[BeginFolder]
+LABEL := "Root"
+FILTER := ""
+
+#[BeginFile]SOURCE := "DrawPanel.java" #[EndFile]
+#[BeginFile]SOURCE := "Menu_window_2.java" #[EndFile]
+#[BeginFile]SOURCE := "Main_window.java" #[EndFile]
+#[BeginFile]SOURCE := "Get_data_window.java" #[EndFile]
+#[BeginFile]SOURCE := "Editor_window.java" #[EndFile]
+#[BeginFile]SOURCE := "Run_algorithm.java" #[EndFile]
+#[BeginFile]SOURCE := "Run_window.java" #[EndFile]
+#[BeginFile]SOURCE := "Algorithm_solve_1.java" #[EndFile]
+#[BeginFile]SOURCE := "Algorithm_solve.java" #[EndFile]
+#[BeginFile]SOURCE := "Algorithm_partition.java" #[EndFile]
+#[BeginFile]SOURCE := "Problem_instance.java" #[EndFile]
+#[BeginFile]SOURCE := "Algorithm_partition_1.java" #[EndFile]
+#[BeginFile]SOURCE := "RASI.java" #[EndFile]
+#[EndFolder]

@@ -1,3 +1,6 @@
+
+package myprojects.rasi;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -41,7 +44,7 @@ class Editor_window extends JFrame
         add_v.setVisible(true);
         vb.add(add_v);
         
-		JButton remove_v = new JButton("USUï¿½ WIERZCHOLEK"); 
+		JButton remove_v = new JButton("USUÑ WIERZCHOLEK"); 
         remove_v.setVisible(true);
         vb.add(remove_v);
 		
@@ -74,16 +77,16 @@ class Editor_window extends JFrame
             	
             	for(int i=0; i<pi.n; i++)
             	{
-            		str[i] = new String("Podaj dï¿½ugoï¿½ï¿½ krawï¿½dzi do " + i);
+            		str[i] = new String("Podaj d³ugoœæ krawêdzi do " + i);
             	}
-            	str[pi.n] = new String("Podaj wagï¿½ wierzchoï¿½ka");
+            	str[pi.n] = new String("Podaj wagê wierzcho³ka");
             	
             	Get_data_window gd = new Get_data_window(str);
             	
             	int[] data = gd.data;
             	
             	System.out.println("dodaje wierzcholek z waga " + data[pi.n]);
-            	pi.add_node(data[pi.n], data);
+            	//pi.add_node(data[pi.n], data);
             	
             	e.reload();
             }
@@ -103,7 +106,7 @@ class Editor_window extends JFrame
             public void actionPerformed(ActionEvent ae) 
             {
             	String[] str = new String[1];
-            	str[0] = new String("Podaj numer wierzchoï¿½ka do kasacji:");
+            	str[0] = new String("Podaj numer wierzcho³ka do kasacji:");
             	
             	Get_data_window gd = new Get_data_window(str);
             	

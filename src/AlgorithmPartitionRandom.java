@@ -1,3 +1,6 @@
+
+package myprojects.rasi;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,12 +21,12 @@ public class AlgorithmPartitionRandom implements Algorithm_partition {
         boolean[] alreadyPicked = new boolean[pi.n];
 
 
-        while (picked < pi.n) {
+        while (picked < pi.n - 1) {
             System.out.println("Picked so far: " + picked + "/" + pi.n);
             int currentTotal = 0;
             List<Integer> current = new ArrayList<Integer>();
             while (true) {
-                int r = rnd.nextInt(pi.n);
+                int r = rnd.nextInt(pi.n-1) + 1;
                 if(!alreadyPicked[r]){
                     if(currentTotal + pi.w[r] <= pi.W){
                         alreadyPicked[r] = true;
@@ -36,9 +39,9 @@ public class AlgorithmPartitionRandom implements Algorithm_partition {
                         break;
                     }
                 }
-                if(picked == pi.n){
+                if(picked == pi.n - 1){
                     result.add(current);
-                    picked = pi.n;
+                    picked = pi.n - 1;
                     break;
                 }
             }
@@ -54,9 +57,14 @@ public class AlgorithmPartitionRandom implements Algorithm_partition {
     }
 
     private int[] listToArray(List<Integer> list){
+    	System.out.println("W Greedy'm");
         int [] result = new int[list.size()];
         for(int i =0; i<list.size(); ++i)
             result[i] = list.get(i);
+            
+        for(int i=0; i < result.length; i++)
+        	System.out.print(result[i] + " ");
+        System.out.println(" ");
         return result;
     }
 }
