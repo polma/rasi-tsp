@@ -14,7 +14,7 @@ for i in range(n):
   print(int(random.uniform(5,100)), end=" ")
 print()
 for i in range(n):
-  print(int(random.uniform(2,48)), end=" ")
+  print(int(random.uniform(2,100)), end=" ")
 print()
 for i in range(n):
-  print(int(random.uniform(2,48)), end=" ")
+  print(int(random.uniform(2,100)), end=" ")
