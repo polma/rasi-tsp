@@ -152,23 +152,4 @@ public class CrossoverOperators {
     public void setCurrentOperator(int opId) {
         currentOperator = opId;
     }
-
-    public static void main(String[] args) {
-        int[] perm1 = {7, 8, 3, 6, 4, 5};
-        int[] perm2 = {8, 7, 5, 6, 3, 4};
-
-        CrossoverOperators cops = new CrossoverOperators(CrossoverOperators.CX);
-
-        int[][] res = cops.mate(perm1, perm2);
-
-        for (int i : res[0]) {
-            System.out.print(i);
-            System.out.print(" ");
-        }
-        System.out.println();
-        for (int i : res[1]) {
-            System.out.print(i);
-            System.out.print(" ");
-        }
-    }
 }
