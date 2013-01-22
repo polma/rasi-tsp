@@ -1,11 +1,6 @@
 
 package myprojects.rasi;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-
-
 class RASI
 {
 	public RASI() 

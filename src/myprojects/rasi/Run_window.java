@@ -122,7 +122,7 @@ class Run_window extends JFrame
             	Algorithm_partition ap1 = Alg_part.get((String)(e.cb1.getSelectedItem()));
             	Algorithm_solve as1 = Alg_solve.get((String)(e.cb2.getSelectedItem()));
             	
-            	//Run_algorithm ra = new Run_algorithm(pi, ap1, as1);
+            	//myprojects.rasi.Run_algorithm ra = new myprojects.rasi.Run_algorithm(pi, ap1, as1);
             	
             	//e.show_solution(ra.solution);
             }

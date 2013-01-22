@@ -1,11 +1,8 @@
-
 package myprojects.rasi;
 
-
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 class Run_algorithm
 {
@@ -63,24 +60,24 @@ class Run_algorithm
 		ppi.shortest_paths();
 		
 		if(!ppi.check_integrity())
-			JOptionPane.showMessageDialog(null, "Graf jest niespójny",
-    				"B³¹d", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Graf jest niespï¿½jny",
+    				"Bï¿½ï¿½d", JOptionPane.ERROR_MESSAGE);
 		
 		this.pi = ppi;
 		
-		String x = JOptionPane.showInputDialog(null, "Wybierz algorytm do podzia³u", 
+		String x = JOptionPane.showInputDialog(null, "Wybierz algorytm do podziaï¿½u", 
 			"Algorytm", JOptionPane.INFORMATION_MESSAGE, null, ap, ap[0]).toString();
 			
 		Algorithm_partition app = Alg_part.get(x);
 		
-		x = JOptionPane.showInputDialog(null, "Wybierz algorytm do rozwi¹zania", 
+		x = JOptionPane.showInputDialog(null, "Wybierz algorytm do rozwiï¿½zania", 
 			"Algorytm", JOptionPane.INFORMATION_MESSAGE, null, as, as[0]).toString();
 			
 		Algorithm_solve ass = Alg_solve.get(x);
 		
 		int minn = pi.count_max();
 		
-        x = JOptionPane.showInputDialog("Podaj pojemnoœæ ciê¿arówki (minimum "+minn+")");
+        x = JOptionPane.showInputDialog("Podaj pojemnoï¿½ï¿½ ciï¿½arï¿½wki (minimum "+minn+")");
         pi.W = Integer.parseInt(x);
 
 		System.out.println("Starting the partitioner...");
