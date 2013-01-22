@@ -93,7 +93,7 @@ public class AlgorithmSolveGenetic implements Algorithm_solve {
             //apply 2-opt on half of the remaining set
             int quarterPopulation = halfPopulation / 2;
             System.out.println("Qrt " + quarterPopulation);
-            if(list.length <= 2) quarterPopulation = 0;
+            if(list.length <= 4) quarterPopulation = 0;
             for (int j = 0; j < quarterPopulation; ++j) {
             	System.out.println("c1");
                 int tourIndex = rnd.nextInt(populationSize);
