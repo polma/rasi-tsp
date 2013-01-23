@@ -20,7 +20,7 @@ class RunAlgorithm {
         Alg_part = new HashMap<String, AlgorithmPartition>();
         Alg_solve = new HashMap<String, AlgorithmSolve>();
 
-        Alg_part.put("Algo 1", new AlgorithmPartition1());
+        Alg_part.put("Simple", new AlgorithmPartition1());
         //Alg_solve.put("Algo 1", new Algorithm_solve_1());
         Alg_part.put("Random Greedy", new AlgorithmPartitionRandom());
         //Alg_solve.put("Genetic", new AlgorithmSolveGenetic());
@@ -35,9 +35,9 @@ class RunAlgorithm {
 
         //o = Alg_solve.keySet().toArray();
         as = new String[4];
-        as[0] = "Algo 1";
+        as[0] = "Simple";
         as[1] = "Genetic";
-        as[2] = "MST";
+        as[2] = "Greedy";
         as[3] = "Brut";
 
         //Object x = JOptionPane.showInputDialog(null, "abc", "def", JOptionPane.QUESTION_MESSAGE);
@@ -61,27 +61,50 @@ class RunAlgorithm {
     RunAlgorithm(ProblemInstance ppi) {
         set_alg();
         ppi.shortest_paths();
+        
+        solution = new int[0][];
 
         if (!ppi.check_integrity())
-            JOptionPane.showMessageDialog(null, "Graf jest niespï¿½jny",
-                    "Bï¿½ï¿½d", JOptionPane.ERROR_MESSAGE);
+        {
+            JOptionPane.showMessageDialog(null, "Graf jest niespójny",
+                    "B³¹d", JOptionPane.ERROR_MESSAGE);
+                    
+            return ;
+        }
 
         this.pi = ppi;
 
-        String x = JOptionPane.showInputDialog(null, "Wybierz algorytm do podziaï¿½u",
-                "Algorytm", JOptionPane.INFORMATION_MESSAGE, null, ap, ap[0]).toString();
-
+        Object o = JOptionPane.showInputDialog(null, "Wybierz algorytm do podzia³u",
+                "Algorytm", JOptionPane.INFORMATION_MESSAGE, null, ap, ap[0]);
+		if(o == null)
+			return;
+		String x = o.toString();
+		
         AlgorithmPartition app = Alg_part.get(x);
 
-        String algorithmName = JOptionPane.showInputDialog(null, "Wybierz algorytm do rozwiï¿½zania",
-                "Algorytm", JOptionPane.INFORMATION_MESSAGE, null, as, as[0]).toString();
-
+        o = JOptionPane.showInputDialog(null, "Wybierz algorytm do rozwi¹zania",
+                "Algorytm", JOptionPane.INFORMATION_MESSAGE, null, as, as[0]);
+		if(o == null)
+			return;
+		String algorithmName = o.toString();
 
         int minn = pi.count_max();
 
-        x = JOptionPane.showInputDialog("Podaj pojemnoÅ›Ä‡ ciÄ™Å¼arÃ³wki (minimum " + minn + ")");
-        pi.W = Integer.parseInt(x);
-
+        x = JOptionPane.showInputDialog("Podaj pojemnoœæ ciê¿arówki (minimum " + minn + ")");
+        if(x == null)
+			return;
+		
+		try{	
+        	pi.W = Integer.parseInt(x);
+        	if(pi.W < minn)
+        		throw new Exception("Zle dane");
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Niepoprawna wartoœæ",
+    			"B³¹d danych", JOptionPane.ERROR_MESSAGE);
+    		return ;
+		}
 
         System.out.println("Starting the partitioner...");
         aux = app.run(pi);
@@ -91,7 +114,7 @@ class RunAlgorithm {
 
         System.out.println("Starting solving the pieces...");
 
-        if (algorithmName.equalsIgnoreCase("algo 1")) {
+        if (algorithmName.equalsIgnoreCase("simple")) {
             for (int i = 0; i < aux.length; i++) {
                 futures[i] = executor.submit(
                         new AlgorithmSolve1(pi, aux[i]));
@@ -101,10 +124,10 @@ class RunAlgorithm {
                 futures[i] = executor.submit(
                         new AlgorithmSolveGenetic(pi, aux[i]));
             }
-        } else if (algorithmName.equalsIgnoreCase("mst")) {
+        } else if (algorithmName.equalsIgnoreCase("greedy")) {
             for (int i = 0; i < aux.length; i++) {
                 futures[i] = executor.submit(
-                        new AlgorithmSolveMST(pi, aux[i]));
+                        new AlgorithmSolveGreedy(pi, aux[i]));
             }
         } else if (algorithmName.equalsIgnoreCase("brut")) {
             for (int i = 0; i < aux.length; i++) {

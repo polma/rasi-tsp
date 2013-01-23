@@ -4,6 +4,9 @@ package myprojects.rasi;
 
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 class ProblemInstance
 {
@@ -47,6 +50,8 @@ class ProblemInstance
 		catch (Exception e)
 		{
 			System.err.println("Error: " + e.getMessage());
+			JOptionPane.showMessageDialog(null, "Wczytanie danych nie powid³o siê.",
+    				"B³¹d pliku", JOptionPane.ERROR_MESSAGE);
 	  	}
 	}
 	
@@ -91,6 +96,9 @@ class ProblemInstance
 		catch (Exception e)
 		{
 			System.err.println("Error: " + e.getMessage());
+			JOptionPane.showMessageDialog(null, "Zapis danych nie powiód³ siê.",
+    				"B³¹d pliku", JOptionPane.ERROR_MESSAGE);
+
 	  	}
 	}
 	

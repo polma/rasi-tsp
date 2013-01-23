@@ -73,6 +73,10 @@ class MenuWindow2 extends JFrame
 		listScroller = new JScrollPane(listbox);
 		hb.add( listScroller, BorderLayout.CENTER );
 		listScroller.setVisible(false);
+		listScroller.setSize(100, 100);
+		//setResizable(true);
+		
+		listScroller.setMaximumSize( new Dimension( 200, 1000 ) );
 		
 		
 	    listbox.addListSelectionListener(new ListSelectionListener() {
@@ -80,8 +84,13 @@ class MenuWindow2 extends JFrame
 	        if (evt.getValueIsAdjusting())
 	          return;
 	        System.out.println("Selected from " + evt.getFirstIndex() + " to " + evt.getLastIndex());
-	        dp.actual = hm.get(evt.getLastIndex()+1);
-	        dp.prev = hm.get(evt.getLastIndex());
+	        if(hm.containsKey(evt.getLastIndex()+1)) 
+	        {
+	        	dp.actual = hm.get(evt.getLastIndex()+1);
+	        	dp.line_nr = evt.getLastIndex()+1;
+	        }
+	        if(hm.containsKey(evt.getLastIndex())) 
+	        	dp.prev = hm.get(evt.getLastIndex());
 	        
 	        dp.repaint();
 	      }
@@ -166,7 +175,7 @@ class MenuWindow2 extends JFrame
 
 		menu = new JMenu("Edycja grafu");
 
-		menuItem = new JMenuItem("Dodaj wierzchoÅ‚ek", KeyEvent.VK_D);
+		menuItem = new JMenuItem("Dodaj wierzcho³ek", KeyEvent.VK_D);
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
@@ -174,7 +183,7 @@ class MenuWindow2 extends JFrame
 		    }	  		
     	});
     	
-		menuItem = new JMenuItem("Edytuj wierzchoÅ‚ek", KeyEvent.VK_E);
+		menuItem = new JMenuItem("Edytuj wierzcho³ek", KeyEvent.VK_E);
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
@@ -182,7 +191,7 @@ class MenuWindow2 extends JFrame
 		    }	  		
     	});
     	
-		menuItem = new JMenuItem("UsuÅ„ wierzchoÅ‚ek", KeyEvent.VK_U);
+		menuItem = new JMenuItem("Usuñ wierzcho³ek", KeyEvent.VK_U);
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
@@ -194,7 +203,7 @@ class MenuWindow2 extends JFrame
         menu.addSeparator();
 
 
-		menuItem = new JMenuItem("Dodaj krawÄ™dÅº", KeyEvent.VK_K);
+		menuItem = new JMenuItem("Dodaj krawêdŸ", KeyEvent.VK_K);
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
@@ -202,7 +211,7 @@ class MenuWindow2 extends JFrame
 		    }	  		
     	});
     	
-		menuItem = new JMenuItem("Edytuj krawÄ™dÅº", KeyEvent.VK_R);
+		menuItem = new JMenuItem("Edytuj krawêdŸ", KeyEvent.VK_R);
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
@@ -210,7 +219,7 @@ class MenuWindow2 extends JFrame
 		    }	  		
     	});
     	
-		menuItem = new JMenuItem("UsuÅ„ krawÄ™dÅº", KeyEvent.VK_A);
+		menuItem = new JMenuItem("Usuñ krawêdŸ", KeyEvent.VK_A);
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
@@ -222,7 +231,7 @@ class MenuWindow2 extends JFrame
         menu.addSeparator();
 
 
-		menuItem = new JMenuItem("ZmieÅ„ punkt startowy", KeyEvent.VK_K);
+		menuItem = new JMenuItem("Zmieñ punkt startowy", KeyEvent.VK_K);
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
@@ -282,20 +291,24 @@ class MenuWindow2 extends JFrame
 
 
 
-		menu = new JMenu("RozwiÄ…zanie");
+		menu = new JMenu("Rozwi¹zanie");
 
-		menuItem = new JMenuItem("ZnajdÅº rozwiÄ…zanie", KeyEvent.VK_D);
+		menuItem = new JMenuItem("ZnajdŸ rozwi¹zanie", KeyEvent.VK_D);
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
-		    	label.setText("Algorytm uruchomiony, trwajÄ… obliczenia...");
+		    	label.setText("Algorytm uruchomiony, trwaj¹ obliczenia...");
 		    	
 		    	RunAlgorithm ra = new RunAlgorithm(pi);
-		    	int[][] sol = ra.solution;
-		    	update_list(sol);
-		    	listScroller.setVisible(true);
-		    	
-		    	label.setText("Obliczenia zakoÅ„czone!");
+		    	if(ra.solution.length != 0)
+		    	{
+			    	int[][] sol = ra.solution;
+			    	update_list(sol);
+			    	listScroller.setVisible(true);
+			    	
+			    	label.setText("Obliczenia zakoñczone!");
+		    	}
+			    else	label.setText("");
 		    }	  		
     	});
     	
@@ -313,31 +326,31 @@ class MenuWindow2 extends JFrame
     	mode = nr;
     	if(mode == 1)
     	{
-    		label.setText("Kliknij miejsce, gdzie ma byÄ‡ dodany wierzchoÅ‚ek");
+    		label.setText("Kliknij miejsce, gdzie ma byæ dodany wierzcho³ek");
     	}
     	else if(mode == 2)
     	{
-    		label.setText("Kliknij miejsce, gdzie ma byÄ‡ edytowany wierzchoÅ‚ek");
+    		label.setText("Kliknij miejsce, gdzie ma byæ edytowany wierzcho³ek");
     	}
     	else if(mode == 3)
     	{
-    		label.setText("Kliknij miejsce, gdzie ma byÄ‡ usuniÄ™ty wierzchoÅ‚ek");
+    		label.setText("Kliknij miejsce, gdzie ma byæ usuniêty wierzcho³ek");
     	}
     	else if(mode == 11)
     	{
-    		label.setText("Kliknij miejsce, gdzie ma byÄ‡ dodana krawÄ™dÅº");
+    		label.setText("Kliknij miejsce, gdzie ma byæ dodana krawêdŸ");
     	}
     	else if(mode == 12)
     	{
-    		label.setText("Kliknij miejsce, gdzie ma byÄ‡ edytowana krawÄ™dÅº");
+    		label.setText("Kliknij miejsce, gdzie ma byæ edytowana krawêdŸ");
     	}
     	else if(mode == 13)
     	{
-    		label.setText("Kliknij miejsce, gdzie ma byÄ‡ usuniÄ™ta krawÄ™dÅº");
+    		label.setText("Kliknij miejsce, gdzie ma byæ usuniêta krawêdŸ");
     	}
     	else if(mode == 21)
     	{
-    		label.setText("Kliknij miejsce, gdzie ma byÄ‡ wierzchoÅ‚ek startowy");
+    		label.setText("Kliknij miejsce, gdzie ma byæ wierzcho³ek startowy");
     	}
     	else
     	{
@@ -359,7 +372,12 @@ class MenuWindow2 extends JFrame
     	for(int i=0; i<solution.length; i++)
     		ile += solution[i].length-1;
     		
-    	String[] str = new String[ile];
+    	String[] str = new String[2*ile];
+    	
+    	dp.vis = new boolean[2*ile][];
+    	for(int i=0; i<2*ile; i++)
+    		dp.vis[i] = new boolean[pi.n];
+    	
     	String aux;
     	ile = 1;
     	
@@ -372,6 +390,10 @@ class MenuWindow2 extends JFrame
     		a = solution[i][0];
     		for(int j=1; j<solution[i].length; j++)
     		{
+    			for(int k=0; k<pi.n; k++)
+    				dp.vis[2*ile][k] = dp.vis[2*ile-1][k] = dp.vis[2*ile-2][k];
+    		
+    			
     			b = solution[i][j];
     			aux = "";
     			if(solution[i][j] == -1)
@@ -379,21 +401,26 @@ class MenuWindow2 extends JFrame
     				j++;
     				b = solution[i][j];
     				zaladowanie += pi.w[b];
-    				aux = " i zaÅ‚aduj";
+    				aux = " Za³aduj";
+    				dp.vis[2*ile][b] = true;
     			}
     			System.out.println(solution[i][j]);
     			if(b == 0)
     			{
-    				aux = " i rozÅ‚aduj";
+    				aux = " Roz³aduj";
     				zaladowanie = 0;
     			}
+    			if(aux == "")
+    				aux = " PrzejedŸ";
     			
     			czas += pi.m[a][b];
-    			str[ii] = ile + ". JedÅº z " + a + " do " + b + aux +
-    				 	", czas: " + czas + ", zaÅ‚adowanie: " +
+    			str[2*ii] = (2*ile-1) + ". JedŸ z " + a + " do " + b;
+    			str[2*ii+1] = (2*ile) + ". " + aux +
+    				 	", czas: " + czas + ", za³adowanie: " +
     					zaladowanie;
     			
-    			hm.put(ile, b);
+    			hm.put(2*ile-1, b);
+    			hm.put(2*ile, b);
     			
     			a = b;	
     			ii++;
