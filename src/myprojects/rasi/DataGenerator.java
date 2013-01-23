@@ -21,9 +21,9 @@ public class DataGenerator
             ProblemInstance pi = new ProblemInstance();
             pi.load_from_file("pgraph1");
 
-            RunAlgorithm2 ra = new RunAlgorithm2(pi, new AlgorithmPartitionRandom(), AlgorithmSolveEnum.Brut);
+            RunAlgorithm2 ra = new RunAlgorithm2(pi, new AlgorithmPartitionBoruvka(), AlgorithmSolveEnum.Greedy);
 
-            FileWriter fstream = new FileWriter("brut.txt");
+            FileWriter fstream = new FileWriter("boruvka_greedy.txt");
             BufferedWriter out = new BufferedWriter(fstream);
             int result;
             for (int i = 100; i < 500; i += 20)

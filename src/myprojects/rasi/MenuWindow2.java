@@ -15,6 +15,7 @@ class MenuWindow2 extends JFrame
 	public DrawPanel dp;
 	public JList listbox;
 	public JScrollPane listScroller;
+        public JSplitPane split;
 	int mode = 0;
 	HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
 	
@@ -34,15 +35,15 @@ class MenuWindow2 extends JFrame
         //frame.setContentPane(demo.createContentPane());
         
        	
-        Box vb = Box.createVerticalBox();
-        add(vb);
-        vb.setVisible(true);
+        //Box vb = Box.createVerticalBox();
+        //add(vb);
+        //vb.setVisible(true);
                 
-       	Box hb = Box.createHorizontalBox();
-        vb.add(hb);
+       	split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        add(split, BorderLayout.CENTER);
                 
        	Box hb2 = Box.createHorizontalBox();
-        vb.add(hb2);
+        add(hb2, BorderLayout.SOUTH);
         
         
         label = new JLabel("Etykietka", JLabel.LEFT);
@@ -59,7 +60,7 @@ class MenuWindow2 extends JFrame
         
         dp = new DrawPanel(pi, this);
         
-        hb.add(dp);
+        split.add(dp);
         
         String	listData[] =
 		{
@@ -71,7 +72,7 @@ class MenuWindow2 extends JFrame
 
 		listbox = new JList( listData );
 		listScroller = new JScrollPane(listbox);
-		hb.add( listScroller, BorderLayout.CENTER );
+		split.add(listScroller);
 		listScroller.setVisible(false);
 		listScroller.setSize(100, 100);
 		//setResizable(true);
@@ -305,6 +306,7 @@ class MenuWindow2 extends JFrame
 			    	int[][] sol = ra.solution;
 			    	update_list(sol);
 			    	listScroller.setVisible(true);
+                                split.setDividerLocation(0.6);
 			    	
 			    	label.setText("Obliczenia zakoñczone!");
 		    	}
