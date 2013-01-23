@@ -52,10 +52,10 @@ public class RunAlgorithm2
                             new AlgorithmSolveGenetic(pi, aux[i]));
                 }
                 break;
-            case MST:
+            case Greedy:
                 for (int i = 0; i < aux.length; i++) {
                     futures[i] = executor.submit(
-                            new AlgorithmSolveMST(pi, aux[i]));
+                            new AlgorithmSolveGreedy(pi, aux[i]));
                 }
                 break;
             case Brut:

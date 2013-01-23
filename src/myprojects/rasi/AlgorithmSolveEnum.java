@@ -11,5 +11,5 @@ package myprojects.rasi;
  */
 public enum AlgorithmSolveEnum 
 {
-    Argo1, Brut, Genetic, MST
+    Argo1, Brut, Genetic, Greedy
 }
