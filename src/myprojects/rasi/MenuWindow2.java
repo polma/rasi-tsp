@@ -436,9 +436,11 @@ class MenuWindow2 extends JFrame
     void clear()
     {
     	listScroller.setVisible(false);
+        split.setDividerLocation(1.0);
     	dp.actual = dp.prev = -1;
 	    mode = 0;
 	    dp.pressed_x = dp.pressed_y = -1;
 	    dp.repaint();
+            listbox.setSelectedIndex(0);
     }
 }
